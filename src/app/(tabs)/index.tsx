@@ -1,9 +1,30 @@
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Alert } from "react-native";
 
 import notifee, { EventType } from "@notifee/react-native";
 import { useEffect } from "react";
+import messaging from "@react-native-firebase/messaging";
 
 export default function TabOneScreen() {
+  async function requestUserPermission() {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      console.log("Authorization status:", authStatus);
+    }
+  }
+
+  useEffect(() => {
+    requestUserPermission();
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      Alert.alert("A new FCM message arrived!", JSON.stringify(remoteMessage));
+    });
+
+    return unsubscribe;
+  }, []);
+
   async function onDisplayNotification() {
     // Request permissions (required for iOS)
     await notifee.requestPermission();
@@ -20,7 +41,7 @@ export default function TabOneScreen() {
       body: "Be sure to download mobile Munch!",
       android: {
         channelId,
-        color: '#ff0066',
+        color: "#ff0066",
         smallIcon: "name-of-a-small-icon", // optional, defaults to 'ic_launcher'.
         // pressAction is needed if you want the notification to open the app when pressed
         pressAction: {
@@ -28,13 +49,15 @@ export default function TabOneScreen() {
         },
       },
       ios: {
-        attachments: [{
-          url: "https://mobilemunchmedia.s3.us-east-1.amazonaws.com/Notifs/BestBuyTrks.png"
-        }],
+        attachments: [
+          {
+            url: "https://mobilemunchmedia.s3.us-east-1.amazonaws.com/Notifs/BestBuyTrks.png",
+          },
+        ],
         foregroundPresentationOptions: {
-          badge: true
-        }
-      }
+          badge: true,
+        },
+      },
     });
   }
 
