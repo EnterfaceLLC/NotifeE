@@ -15,12 +15,19 @@
     "ios": {
       "supportsTablet": true,
       "googleServicesFile": "./GoogleService-Info.plist",
-      "bundleIdentifier": "com.dotenterface.NotifeE"
+      "bundleIdentifier": "com.dotenterface.NotifeE",
+      "entitlements": {
+        "aps-environment": "development"
+      },
+      "runtimeVersion": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "runtimeVersion": {
+        "policy": "appVersion"
       }
     },
     "web": {
@@ -31,17 +38,21 @@
     "plugins": [
       "expo-router",
       "@react-native-firebase/app",
-      [
-        "expo-build-properties",
-        {
-          "ios": {
-            "useFrameworks": "static"
-          }
-        }
-      ]
+      
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "0e20c4b4-b560-4818-adbb-9c1a48241729"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/0e20c4b4-b560-4818-adbb-9c1a48241729"
     }
   }
 }
