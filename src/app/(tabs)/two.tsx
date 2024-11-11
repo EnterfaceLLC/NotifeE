@@ -77,10 +77,6 @@ export default function TabTwoScreen() {
     );
   }
 
-  notifee
-    .getTriggerNotificationIds()
-    .then((ids) => console.log("All trigger notifications: ", ids));
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -114,11 +110,13 @@ export default function TabTwoScreen() {
       <View>
         <Button
           title="Submit Notification"
+          color={"teal"}
           onPress={() => onDisplayNotification()}
         />
 
         <Button
           title="Create Trigger Notification"
+          color={"tomato"}
           onPress={() => onCreateTriggerNotification()}
         />
       </View>

@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Tabs } from "expo-router";
-import { Alert } from "react-native";
+import { Alert, AppRegistry } from "react-native";
 // import { Pressable } from "react-native";
 import messaging from "@react-native-firebase/messaging";
+import App from "./index";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -42,6 +43,7 @@ export default function TabLayout() {
 
   //   return unsubscribe;
   // });
+
 
   return (
     <Tabs>

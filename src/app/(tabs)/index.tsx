@@ -2,46 +2,15 @@ import { StyleSheet, Text, View, Button, Alert } from "react-native";
 
 import notifee, { EventType } from "@notifee/react-native";
 import { useEffect, useState } from "react";
-import messaging, { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
+import { useNotification } from "@/src/providers/useNotifs";
 
 export default function TabOneScreen() {
   const [notifTitle, setNotifTitle] = useState("");
-  const [notifBody, setNotifBody] = useState<FirebaseMessagingTypes.RemoteMessage>("");
+  const [notifBody, setNotifBody] = useState("");
 
-  async function requestUserPermission() {
-    const authStatus = await messaging().requestPermission();
-    const enabled =
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+  const { fcmToken, notification } = useNotification();
 
-    if (enabled) {
-      console.log("Authorization status:", authStatus);
-    }
-  }
-
-  async function getToken() {
-    // await messaging().registerDeviceForRemoteMessages();
-    const tok = await messaging().getToken();
-    console.log("TOK:", tok);
-  }
-
-  useEffect(() => {
-    requestUserPermission();
-    getToken();
-
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      Alert.alert("A new FCM message arrived!", JSON.stringify(remoteMessage));
-      console.log(
-        "FCM message Body{}!",
-        JSON.stringify(remoteMessage.notification?.body)
-      );
-      setNotifBody(remoteMessage.notification?.title);
-      setNotifBody(remoteMessage.notification?.body);
-    });
-
-    return unsubscribe;
-  });
-
+  //NOTIFEE CODE BLOCK WORKS!!//
   async function onDisplayNotification() {
     // Request permissions (required for iOS)
     await notifee.requestPermission();
@@ -80,30 +49,61 @@ export default function TabOneScreen() {
     });
   }
 
-  // useEffect(() => {
-  //   return notifee.onForegroundEvent(({ type, detail }) => {
-  //     switch (type) {
-  //       case EventType.DISMISSED:
-  //         console.log("Notification dismissed by user", detail.notification);
-  //         break;
-  //       case EventType.PRESS:
-  //         console.log("Notification clicked by user", detail.notification);
-  //         break;
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    return notifee.onForegroundEvent(({ type, detail }) => {
+      switch (type) {
+        case EventType.DISMISSED:
+          console.log("Notification dismissed by user", detail.notification);
+          break;
+        case EventType.PRESS:
+          console.log("Notification clicked by user", detail.notification);
+          break;
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (fcmToken) {
+      console.log("FCM Token:", fcmToken);
+    }
+  }, [fcmToken]);
+
+  useEffect(() => {
+    if (notification) {
+      // console.log("Received Notification:", notification);
+      setNotifTitle(notification.notification["title"]);
+      setNotifBody(notification.notification["body"]);
+    }
+  }, [notification]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} />
-      <Text>.Enterface</Text>
+      <Text style={styles.title}>.Enterface</Text>
 
       <View>
         <Button
           title="Display Notification"
+          color={"teal"}
           onPress={() => onDisplayNotification()}
         />
+      </View>
+      <View style={styles.separator} />
+
+      <View>
+        {/* <Text>Your FCM Token: {fcmToken}</Text> */}
+        {notification && (
+          <View
+            style={{
+              backgroundColor: "lightgrey",
+              padding: 10,
+              borderRadius: 15,
+              marginHorizontal: 5,
+            }}
+          >
+            <Text style={[styles.title, { fontSize: 14 }]}>Push Notif</Text>
+            <Text style={{ fontSize: 12 }}>{JSON.stringify(notification)}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -113,15 +113,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-around",
   },
   title: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: "500",
   },
   separator: {
     marginVertical: 30,
     height: 1,
-    width: "80%",
+    borderColor: "lightgrey",
+    borderWidth: StyleSheet.hairlineWidth,
+    width: "90%",
   },
 });
