@@ -6,7 +6,7 @@ import messaging, { FirebaseMessagingTypes } from "@react-native-firebase/messag
 
 export default function TabOneScreen() {
   const [notifTitle, setNotifTitle] = useState("");
-  const [notifBody, setNotifBody] = useState<FirebaseMessagingTypes.RemoteMessage | string>("");
+  const [notifBody, setNotifBody] = useState<FirebaseMessagingTypes.RemoteMessage>("");
 
   async function requestUserPermission() {
     const authStatus = await messaging().requestPermission();

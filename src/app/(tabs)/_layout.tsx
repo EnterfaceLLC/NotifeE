@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Tabs } from "expo-router";
 import { Alert } from "react-native";
 // import { Pressable } from "react-native";
@@ -47,15 +48,23 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Tab One",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Dashboard",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="view-dashboard"
+              size={24}
+              color="black"
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="two"
         options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Notify",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="draw-pen" size={24} color="black" />
+          ),
         }}
       />
     </Tabs>
