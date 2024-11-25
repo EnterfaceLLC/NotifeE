@@ -10,6 +10,11 @@
       "StackName": "amplify-notifee-dev-93887",
       "StackId": "arn:aws:cloudformation:us-east-1:638558189245:stack/amplify-notifee-dev-93887/f41e17a0-aada-11ef-ab23-0eeb3232c81b",
       "AmplifyAppId": "dw0979x4nhyk"
+    },
+    "categories": {
+      "auth": {
+        "NotifeE": {}
+      }
     }
   }
 }
