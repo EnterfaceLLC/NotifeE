@@ -8,6 +8,7 @@ import { NotificationProvider } from "../providers/useNotifs";
 
 import { Amplify } from "aws-amplify";
 import amplifyconfig from "../amplifyconfiguration.json";
+import AuthContextProvider from "../providers/useAuth";
 Amplify.configure(amplifyconfig);
 
 export {
@@ -49,10 +50,10 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <NotificationProvider>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-    </NotificationProvider>
+    <AuthContextProvider>
+      <NotificationProvider>
+        <Stack screenOptions={{ headerShown: false }} />
+      </NotificationProvider>
+    </AuthContextProvider>
   );
 }

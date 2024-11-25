@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View, Button, Alert } from "react-native";
+import { StyleSheet, Text, View, Button, Alert, Pressable } from "react-native";
 
 import notifee, { EventType } from "@notifee/react-native";
 import { useEffect, useState } from "react";
 import { useNotification } from "@/src/providers/useNotifs";
 import { router } from "expo-router";
 
-export default function TabOneScreen() {
+const TabOneScreen = () => {
   const [notifTitle, setNotifTitle] = useState("");
   const [notifBody, setNotifBody] = useState("");
 
@@ -109,7 +109,9 @@ export default function TabOneScreen() {
       </View>
     </View>
   );
-}
+};
+
+export default TabOneScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -128,4 +130,11 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     width: "90%",
   },
+  buttonContainer: {
+    alignSelf: "center",
+    backgroundColor: "teal",
+    // paddingHorizontal: 8,
+    borderRadius: 10,
+  },
+  buttonText: { color: "white", padding: 16, fontSize: 12 },
 });
