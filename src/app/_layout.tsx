@@ -6,6 +6,10 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { NotificationProvider } from "../providers/useNotifs";
 
+import { Amplify } from "aws-amplify";
+import amplifyconfig from "../amplifyconfiguration.json";
+Amplify.configure(amplifyconfig);
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,

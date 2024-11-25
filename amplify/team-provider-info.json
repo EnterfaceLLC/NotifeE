@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-notifee-dev-93887-authRole",
+      "UnauthRoleArn": "arn:aws:iam::638558189245:role/amplify-notifee-dev-93887-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::638558189245:role/amplify-notifee-dev-93887-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-notifee-dev-93887-deployment",
+      "UnauthRoleName": "amplify-notifee-dev-93887-unauthRole",
+      "StackName": "amplify-notifee-dev-93887",
+      "StackId": "arn:aws:cloudformation:us-east-1:638558189245:stack/amplify-notifee-dev-93887/f41e17a0-aada-11ef-ab23-0eeb3232c81b",
+      "AmplifyAppId": "dw0979x4nhyk"
+    }
+  }
+}
