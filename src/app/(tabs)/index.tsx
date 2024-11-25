@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import notifee, { EventType } from "@notifee/react-native";
 import { useEffect, useState } from "react";
 import { useNotification } from "@/src/providers/useNotifs";
+import { router } from "expo-router";
 
 export default function TabOneScreen() {
   const [notifTitle, setNotifTitle] = useState("");
@@ -57,6 +58,7 @@ export default function TabOneScreen() {
           break;
         case EventType.PRESS:
           console.log("Notification clicked by user", detail.notification);
+          router.push("/");
           break;
       }
     });
